@@ -11,7 +11,7 @@ export const addItemToList = (listId, userId, itemName) => {
     }
 
     listRef.update({
-        users: firebase.firestore.FieldValue.arrayUnion(itemObject),
+        items: firebase.firestore.FieldValue.arrayUnion(itemObject),
     })
 }
 
@@ -19,6 +19,6 @@ export const removeItemFromList = (listId, itemObject) => {
     const listRef = firebase.firestore().collection('lists').doc(listId)
 
     listRef.update({
-        users: firebase.firestore.FieldValue.arrayRemove(itemObject),
+        items: firebase.firestore.FieldValue.arrayRemove(itemObject),
     })
 }
