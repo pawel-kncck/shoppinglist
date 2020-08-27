@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import firebase from './Database/firebase';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import LoginPage from './Authentication/LoginPage';
+import SignupPage from './Authentication/SignupPage';
+import Lists from './List/Lists';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) setCurrentUser(user)
+      });
+  },[])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+          <Route path='/lists' exact component={Lists} />
+          <Route path='/login' exact component={LoginPage} />
+          <Route path='/signup' exact component={SignupPage} />
+          <Route path='/' component={LoginPage} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
