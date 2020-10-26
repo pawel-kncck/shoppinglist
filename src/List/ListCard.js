@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
 import { addItemToList, removeItemFromList } from '../Database/db.items';
+import ListItem from './ListItem';
 import firebase from '../Database/firebase';
 
 const useStyles = makeStyles({
@@ -74,7 +75,7 @@ const ListCard = ({ listObject }) => {
                 {listObject.items.map(itemObject => {
                     return (
                         <div className={classes.listItem} key={itemObject.id}>
-                            <div className={classes.nameContainer}>{itemObject.name}</div>
+                            <ListItem itemObject={itemObject} />
                             <div className={classes.deleteContainer}><button className={classes.button} onClick={() => removeItem(itemObject)}>X</button></div>
                         </div>
                     )
